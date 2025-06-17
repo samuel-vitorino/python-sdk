@@ -74,11 +74,15 @@ class TokenHandler:
 
     def response(self, obj: TokenSuccessResponse | TokenErrorResponse):
         status_code = 200
+        content = obj
+        
         if isinstance(obj, TokenErrorResponse):
             status_code = 400
+        else:
+            content = obj.root
 
         return PydanticJSONResponse(
-            content=obj,
+            content=content,
             status_code=status_code,
             headers={
                 "Cache-Control": "no-store",
