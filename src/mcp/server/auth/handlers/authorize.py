@@ -141,7 +141,6 @@ class AuthorizationHandler:
             if request.method == "GET":
                 # Convert query_params to dict for pydantic validation
                 params = request.query_params
-                logger.info("REQUEST PARAMS", params)
             else:
                 # Parse form data for POST requests
                 params = await request.form()

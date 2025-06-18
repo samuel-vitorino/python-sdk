@@ -24,6 +24,7 @@ class AuthorizationCode(BaseModel):
     code_challenge: str
     redirect_uri: AnyUrl
     redirect_uri_provided_explicitly: bool
+    nonce: str | None = None
 
 
 class RefreshToken(BaseModel):
