@@ -35,6 +35,7 @@ class AuthorizationRequest(BaseModel):
         None,
         description="Optional scope; if specified, should be " "a space-separated list of scope strings",
     )
+    nonce: str | None = Field(None, description="OpenID Nonce")
 
 
 class AuthorizationErrorResponse(BaseModel):
@@ -140,6 +141,7 @@ class AuthorizationHandler:
             if request.method == "GET":
                 # Convert query_params to dict for pydantic validation
                 params = request.query_params
+                logger.info("REQUEST PARAMS", params)
             else:
                 # Parse form data for POST requests
                 params = await request.form()
@@ -197,6 +199,7 @@ class AuthorizationHandler:
                 code_challenge=auth_request.code_challenge,
                 redirect_uri=redirect_uri,
                 redirect_uri_provided_explicitly=auth_request.redirect_uri is not None,
+                nonce=auth_request.nonce,
             )
 
             try:
