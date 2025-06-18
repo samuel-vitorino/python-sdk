@@ -13,7 +13,7 @@ class AuthorizationParams(BaseModel):
     code_challenge: str
     redirect_uri: AnyUrl
     redirect_uri_provided_explicitly: bool
-    nonce: str | None
+    nonce: str | None = None
 
 
 class AuthorizationCode(BaseModel):
